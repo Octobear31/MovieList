@@ -1,0 +1,121 @@
+.cell {
+ width: 300px;
+ height: 480px;
+ /* border: 1px solid white; */
+ margin-bottom: 15px;
+ margin-left: 10px;
+ text-align: center;
+ background-color: rgba(255, 255, 255, 0.85);
+ border-radius: 3px;
+ font-family: 'Patrick Hand SC', cursive;
+ text-transform: uppercase;
+}
+
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+
+}
+
+.add {
+    margin: 5px;
+}
+
+body {
+    background-image: url(images/bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+input {
+    width: 800px;
+    height: 40px;
+    outline: none;
+    border: 0;
+    background:rgba(255, 255, 255, 0.95);
+    color: black;
+    font-size: 20px;
+    padding-left: 10px;
+    /* font-family: 'Special Elite', cursive; */
+    /* font-family: 'Patrick Hand SC', cursive; */
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#butt {
+    position: absolute;
+    width: 70px;
+    height: 42px;
+    margin-left: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    background:rgba(176, 106, 77, 0.9);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(140, 125, 94, 1);
+    border-radius: 3px;
+    outline: none; 
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#butt:hover {
+    background:rgba(176, 106, 77, 1);
+}
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+input:hover {
+    background-color: rgba(255, 255, 255, 1); 
+}
+
+.auth{
+    position: absolute;
+    width: 70px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 20px;
+    background:rgba(253, 253, 253, 0.5);
+    color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(140, 125, 94, 1);
+    border-radius: 3px;
+    outline: none; 
+    font-family: 'Ubuntu', sans-serif;
+    float: right;
+}
+
+#log{
+    margin-left: 340px;
+}
+
+#reg{
+    margin-left: 430px;
+    width: 100px;
+}
+
+.auth:hover {
+    background-color: rgba(255, 255, 255, 0.9); 
+}
+
+#switch {
+    float: right;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+
+}
+
+#signOut{
+    margin-left: 425px;
+    width: 100px;
+}
+
+#bcktolst{
+    margin-left: 215px;
+}

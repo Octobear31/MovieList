@@ -1,0 +1,20 @@
+{
+  "name": "mym",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.4",
+    "imdb-api": "^3.1.1",
+    "jade": "^1.11.0",
+    "mongodb": "^2.2.31",
+    "moviedb": "^0.2.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "octobear",
+  "license": "ISC"
+}
