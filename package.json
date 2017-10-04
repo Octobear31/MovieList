@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.15.4",
+    "express-session": "1.15.6",
     "imdb-api": "^3.1.1",
     "jade": "^1.11.0",
     "mongodb": "^2.2.31",

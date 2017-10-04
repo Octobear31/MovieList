@@ -13,6 +13,7 @@ app.use(express.static('public/'));
 app.use(bp.urlencoded({ extended: false }));
 app.use(session({ secret: 'I know your secret', cookie: { maxAge: 600000 }, login: '', email: '' }));
 
+app.set('port', (process.env.PORT || 3002));
 app.set("views", "./views");
 app.set("view engine", "jade");
 
@@ -292,6 +293,8 @@ app.post("/deleteMov", function(req, res) {
 
 
 
-app.listen(3002);
-
+// app.listen(3002);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
