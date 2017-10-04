@@ -20,11 +20,12 @@ html(lang='en')
       button#log.auth= uLog 
       button#signOut.auth Sign Out
     hr
+    #nomov
     #results
       - for (var i = 0; i < myMovies.length; i++) {
         - var x = 'https://image.tmdb.org/t/p/w500' + myMovies[i].poster_path
         div.cell(dataId=myMovies[i].id)
-          h2= myMovies[i].title
+          div.hdr2= myMovies[i].title
           h3
             = myMovies[i].release_date
             = rating

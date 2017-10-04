@@ -6,6 +6,7 @@ $('#butt').click(function () {
         if (!data) {
             $("#nomov").css("display", "block");
             $("#nomov").html("Please enter correct movie title");
+            setTimeout("$('#nomov').css('display', 'none');", 1500);
         } else {
             $("#results").html("");
             for (var i = 0; i < data.length; i++) {
@@ -16,7 +17,7 @@ $('#butt').click(function () {
                 bg = data[i].backdrop_path;
                 id = data[i].id;
 
-                var cell = "<div class='cell'><h2>" + title + "</h2><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt none' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
+                var cell = "<div class='cell'><div class='hdr2'>" + title + "</div><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt none' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
                 $("#results").append(cell);
                 $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
             };
@@ -115,6 +116,8 @@ $('#buttL').click(function () {
         if (!data) {
             $("#nomov").css("display", "block");
             $("#nomov").html("Please enter correct movie title");
+            setTimeout("$('#nomov').css('display', 'none');", 1500);
+
         } else {
             $("#results").html("");
             for (var i = 0; i < data.length; i++) {
@@ -125,7 +128,7 @@ $('#buttL').click(function () {
                 bg = data[i].backdrop_path;
                 id = data[i].id;
 
-                var cell = "<div class='cell'><h2>" + title + "</h2><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
+                var cell = "<div class='cell'><div class='hdr2'>" + title + "</div><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
                 $("#results").append(cell);
                 $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
             };
