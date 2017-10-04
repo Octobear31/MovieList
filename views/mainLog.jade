@@ -1,5 +1,7 @@
-- var uLog = login;
+- var uLog = ""+ login+ "'s movie list";
 - var myMovies = movies;
+- var rating = "  |  Rating: ";
+- var image = 'images/delete.png';
 doctype html
 html(lang='en')
   head
@@ -12,27 +14,31 @@ html(lang='en')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
   body
     input#name(type='text', placeholder='Enter movie name')
-    button#butt Find
-    span#backToList 
-    button#log.auth= uLog 
-    button#signOut.auth Sign Out
+    button#buttL Find
+    span.nav
+      span#backToList 
+      button#log.auth= uLog 
+      button#signOut.auth Sign Out
     hr
     #results
       - for (var i = 0; i < myMovies.length; i++) {
         - var x = 'https://image.tmdb.org/t/p/w500' + myMovies[i].poster_path
-        div.cell
+        div.cell(dataId=myMovies[i].id)
           h2= myMovies[i].title
           h3
             = myMovies[i].release_date
-             /rating:
+            = rating
             = myMovies[i].vote_average
+            /10
           img(src= x width=200 height=300)
+          br
+          img(src= 'images/watched.png' width=30 height=30).seen
+          img(src= image width=30 height=30).remove
+          p.delete Remove from list
           
           
 
-          //- var cell = "<div class='cell'><h2>" + title + "</h2><h3>" + year + " / rating: " + type + "</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='No poster' width=200 height=300 ><br><button class='addMov' class='add' myMoviesId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view'>Details</button></a><p class='alreadyIn'></p></div>";
-          //- $("#results").append(cell);
-          //- $("#backToList").html("<button id='bcktolst' class='auth'>My movies</button>");
+
       - }
     // script connected
     script(src='js/client.js')

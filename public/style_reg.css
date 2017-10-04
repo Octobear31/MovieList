@@ -30,3 +30,62 @@ input:hover {
     display: block;
     margin-top: 10px;
 }
+
+#succ{
+     min-width: 0;
+     /* height: 40px; */
+     background: #7AF8AC;
+     position: absolute;
+     border: 1px solid #02FC5A;
+     display: none;
+     font-family: 'Ubuntu', sans-serif;
+     padding: 5px;
+     top: 139px;
+     left: 200px;
+}
+
+.back{
+    position: absolute;
+    top: 10px;
+    left: 1250px;
+}
+
+.auth{
+    /* position: absolute; */
+    min-width: 70px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 20px;
+    background:rgba(253, 253, 253, 0.5);
+    color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(140, 125, 94, 1);
+    border-radius: 3px;
+    outline: none; 
+    font-family: 'Ubuntu', sans-serif;
+    margin-right: 2px; 
+    /* float: right; */
+}
+
+.auth:hover {
+    background-color: rgba(255, 255, 255, 0.9); 
+}
+
+#logina {
+    width: 120px;
+    height: 40px;
+    display: block;
+    margin-top: 10px;
+ }
+
+ #nope{
+    min-width: 0;
+    /* height: 40px; */
+    background: #FDBDBD;
+    position: absolute;
+    border: 1px solid red;
+    display: none;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 5px;
+    top: 112px;
+    left: 200px;
+ }

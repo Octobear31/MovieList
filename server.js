@@ -2,10 +2,11 @@ var express = require('express');
 var app = express();
 var session = require('express-session');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/usersDB";
+// var url = "mongodb://localhost:27017/usersDB";
+var url = "mongodb://Vasyl:19941994@ds163494.mlab.com:63494/movielist_db";
 var bp = require('body-parser');
 var fs = require('fs');
-const imdb = require('imdb-api');
+// const imdb = require('imdb-api');
 const mdb = require('moviedb')('4c35adaaf9565619373148e005200514');
 
 app.use(express.static('public/'));
@@ -43,20 +44,29 @@ app.get('/', function (req, res) {
           result.toArray(function (err, docs) {
             if (docs != null) {
               myMoviesToScreen = docs;
-              console.log(docs);
+              // console.log(docs);
             }
             res.render('mainLog', { login: session.login, movies: myMoviesToScreen });
 
           });
         });
+        ///////////////////// delete movie
+        // db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
+        //   if (err) throw err;
+        //   var delid = parseInt(req.params.id, 10);
+        //   var delarr = user[0].movieId;
+        //   console.log("delete" +delarr);
+        //   db.collection("musers").deleteOne({delarr : delid}, function (err, obj) {
+        //     if (err) throw err;
+        //     console.log("1 document deleted");
+        //     // db.close();
+        //   });
+        // });
 
-
-        
       });
     });
-  
-    
-    
+
+
   }
 });
 
@@ -91,7 +101,29 @@ app.get("/p:id", function (req, res) {
     res.render("details", { details: result })
   });
 });
+////////////////////////////////////////////////////// search log
+app.post('/mdbSearchLog', function (req, res) {
+  if(session.login) {
+  var input = req.body.name;
+  console.log(input);
+  if (input == "") {
+    res.send(false);
+  } else {
+    // console.log(input);
+    mdb.searchMovie({ query: input }, (err, data) => {
+      let dataM = data;
+      if (dataM.total_results == 0) {
+        res.send(false);
+      } else {
+        // console.log(dataM);
+        res.json(dataM.results);
+      }
+    });
+  }
+}
+});
 
+/////////////////////////////////// search unlog
 app.post('/mdbSearch', function (req, res) {
   var input = req.body.name;
   console.log(input);
@@ -111,6 +143,8 @@ app.post('/mdbSearch', function (req, res) {
   }
 });
 
+
+
 /////////////////////////////////////// registration part is here
 app.post('/registration', function (req, res) {
   MongoClient.connect(url, function (err, db) {
@@ -125,8 +159,8 @@ app.post('/registration', function (req, res) {
         session.email = req.body.email;
         // console.log(session.email);
 
-        // res.end("New user " + req.body.login + " has been created");
-        res.redirect('/');
+        res.end("New user " + req.body.login + " has been created.");
+        // res.redirect('/');
       };
     });
     // db.collection("musers").find({}).toArray(function (err, result) {
@@ -197,11 +231,12 @@ app.post("/addMov", function (req, res) {
                   if (err) throw err;
                   if (result != null) {
                     console.log("Movie added to DB");
+                    res.send(true);
                   };
                 });
 
               }
-              console.log(result);
+              // console.log(result);
             });
 
           });
@@ -209,7 +244,7 @@ app.post("/addMov", function (req, res) {
 
         } else {
           console.log("Movie is already added to DB");
-          res.end("This movie is already in your list")
+          res.send("This movie is already in your list");
         }
 
       };
@@ -230,6 +265,32 @@ app.post("/addMov", function (req, res) {
 
   });
 });
+
+///////////////////////////// delete movie
+
+app.post("/deleteMov", function(req, res) {
+  var movId = parseInt(req.body.dataid, 10);
+  // console.log(req.body);
+  MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
+  db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
+    if (err) throw err;
+    // var movieIdArr = user[0].movieId;
+    var k = user[0].movieId.indexOf(movId);
+    console.log(k);
+    user[0].movieId.splice(k,1);
+    db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+      if (err) throw err;
+      res.send(true);
+    });
+    
+  });
+  });
+});
+
+
+
+
 
 app.listen(3002);
 

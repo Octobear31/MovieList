@@ -1,14 +1,25 @@
 .cell {
- width: 300px;
- height: 480px;
- /* border: 1px solid white; */
- margin-bottom: 15px;
+ width: 290px;
+ min-height: 450px;
+ border: 1px solid black;
+ margin-bottom: 10px;
  margin-left: 10px;
  text-align: center;
  background-color: rgba(255, 255, 255, 0.85);
  border-radius: 3px;
  font-family: 'Patrick Hand SC', cursive;
  text-transform: uppercase;
+ /* font-size: 2vh; */
+}
+
+h2{
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+h3{
+    margin-top: 10px;
 }
 
 #results {
@@ -19,9 +30,35 @@
 
 }
 
-.add {
-    margin: 5px;
+.addMov {
+    
+    
 }
+.view {
+    padding: 5px;
+}
+
+.cellbutt {
+    width: 120px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 20px;
+    background:rgba(253, 253, 253, 0.5);
+    color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 3px;
+    outline: none; 
+    font-family: 'Patrick Hand SC', cursive;
+    text-transform: uppercase;
+    margin: 5px;
+
+}
+
+.cellbutt:hover {
+    background:rgba(200, 246, 255, 0.60);
+    border: 1px solid rgb(100, 156, 251);
+}
+
 
 body {
     background-image: url(images/bg.jpg);
@@ -49,7 +86,7 @@ input {
     position: absolute;
     width: 70px;
     height: 42px;
-    margin-left: 30px;
+    margin-left: 10px;
     cursor: pointer;
     font-size: 20px;
     background:rgba(176, 106, 77, 0.9);
@@ -59,9 +96,30 @@ input {
     outline: none; 
     font-family: 'Ubuntu', sans-serif;
 }
+#buttL{
+    position: absolute;
+    width: 70px;
+    height: 42px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    background:rgba(176, 106, 77, 0.9);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(140, 125, 94, 1);
+    border-radius: 3px;
+    outline: none; 
+    font-family: 'Ubuntu', sans-serif;
+
+}
 
 #butt:hover {
     background:rgba(176, 106, 77, 1);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+#buttL:hover {
+    background:rgba(176, 106, 77, 1);
+    border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .cell:hover {
@@ -73,8 +131,8 @@ input:hover {
 }
 
 .auth{
-    position: absolute;
-    width: 70px;
+    /* position: absolute; */
+    min-width: 70px;
     height: 42px;
     cursor: pointer;
     font-size: 20px;
@@ -84,15 +142,16 @@ input:hover {
     border-radius: 3px;
     outline: none; 
     font-family: 'Ubuntu', sans-serif;
-    float: right;
+    margin-right: 2px; 
+    /* float: right; */
 }
 
 #log{
-    margin-left: 340px;
+    /* margin-left: 340px; */
 }
 
 #reg{
-    margin-left: 430px;
+    /* margin-left: 430px; */
     width: 100px;
 }
 
@@ -112,10 +171,150 @@ input:hover {
 }
 
 #signOut{
-    margin-left: 425px;
     width: 100px;
 }
 
 #bcktolst{
-    margin-left: 215px;
+    
 }
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+    float: right;
+}
+
+img{
+    border-radius: 2%;
+    border: 1px solid;
+}
+
+.delete{
+    width: 50%;
+    margin: 5px auto;
+    border: 1px solid red;
+    cursor: pointer;
+    display: none;
+}
+
+.delete:hover{
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.remove, .seen{
+    border: none;
+    border-radius: 50%;
+    margin: 10px;
+    cursor: pointer;
+    /* display: none; */
+}
+
+.remove:hover{
+    background: #F36C6C;
+}
+
+/* .seen{
+    border: none;
+    border-radius: 50%;
+    margin:10px;
+    cursor: pointer;
+    display: none;
+} */
+
+.seen:hover{
+    background: lightgreen;
+}
+
+#wall{
+    background-image: url(images/joker.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    /* background-attachment: fixed; */
+    background-size: contain;
+    width: 300px;
+    height: 500px;
+    position: absolute;
+    left: 1000px;
+    top: 162px;
+    /* border: 1px solid; */  
+}
+
+
+ #why{
+    background-image: url(images/why1.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    /* background-attachment: fixed; */
+    background-size: contain;
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    left: 950px;
+    top: -100px;
+    display: none;
+ }
+
+ #wall:hover #why{
+    display: block;
+ }
+
+ #nope{
+    min-width: 0;
+    /* height: 40px; */
+    background: #FDBDBD;
+    position: absolute;
+    border: 1px solid red;
+    display: none;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 5px;
+    top: 139px;
+    left: 200px;
+ }
+
+ #nomov{
+    min-width: 0;
+    /* height: 40px; */
+    background: #F9E1E1;
+    position: absolute;
+    border: 1px solid red;
+    display: none;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 5px;
+    top: 15px;
+    left: 570px;
+    display: none;
+ }
+
+ .none{
+     display: none;
+ }
+
+ .overview{
+     float: left;
+     margin: 0 15px;
+ }
+
+ .cello{
+    width: 500px;
+    min-height: 450px;
+    border: 1px solid black;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 3px;
+    font-family: 'Patrick Hand SC', cursive;
+    font-size: 20px;
+    /* text-transform: uppercase; */
+    padding: 0 20px;
+    box-sizing: border-box;
+ }
+ a{
+     text-decoration: none;
+ }
+
+ .padd{
+    padding: 7px;
+ }
