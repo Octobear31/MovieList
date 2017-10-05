@@ -311,7 +311,7 @@ img{
 
  .cello{
     width: 500px;
-    min-height: 450px;
+    min-height: 480px;
     border: 1px solid black;
     margin: 0 auto;
     text-align: center;
@@ -325,8 +325,38 @@ img{
  }
  a{
      text-decoration: none;
+
  }
 
+ .det{
+     display: inline-block;
+     padding: 10px;
+ }
  .padd{
     padding: 7px;
  }
+
+ .summary{
+     min-height: 300px;
+ }
+
+/* /////////////////// */
+
+
+#load{
+    width: 100px;
+    height: 100px;
+    margin-top: calc(20% - 50px);
+    background-image: url(images/load.svg);
+    animation-name: preload;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    display: none;
+}
+ 
+
+@keyframes preload{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}

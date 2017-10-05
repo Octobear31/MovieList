@@ -1,49 +1,72 @@
-$('#butt').click(function () {
-    var movie = $('#name').val();
-    $.post('/mdbSearch', { name: movie }, function (data) {
-        var title = "";
-        var poster = "";
-        if (!data) {
-            $("#nomov").css("display", "block");
-            $("#nomov").html("Please enter correct movie title");
-            setTimeout("$('#nomov').css('display', 'none');", 1500);
-        } else {
-            $("#results").html("");
-            for (var i = 0; i < data.length; i++) {
-                title = data[i].title;
-                year = data[i].release_date;
-                type = data[i].vote_average;
-                poster = data[i].poster_path;
-                bg = data[i].backdrop_path;
-                id = data[i].id;
-
-                var cell = "<div class='cell'><div class='hdr2'>" + title + "</div><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt none' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
-                $("#results").append(cell);
-                $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
-            };
-            ////////////////////////// add to list
-            // $('.addMov').on('click', function () {
-            //     var dataId = this.getAttribute("dataId");
-            //     var self = this;
-            //     $.post('/addMov', { dataId: dataId }, function (data) {
-            //         console.log(data);
-
-            //         // $(".alreadyIn").html(data);
-            //         if (data == true) {
-            //             self.nextElementSibling.nextElementSibling.innerHTML = "Movie has been added";
-            //             self.remove();
-
-            //         } else {
-            //             self.nextElementSibling.nextElementSibling.innerHTML = data;
-            //             self.remove();
-
-            //         }
-            //     });
-            // });
-        }
-        console.log(data);
-    });
+$('#butt').on({
+    click : () => {
+        search();
+        preloader();
+    }
 });
+
+$("#name").on({
+    keyup : function(e) {
+        if( e.keyCode == 13) {
+            search();
+            preloader();
+        }
+        
+    }
+});
+
+function preloader() {
+    $("#load").css("display", "block");
+}
+
+
+function search() {
+        var movie = $('#name').val();
+        $.post('/mdbSearch', { name: movie }, function (data) {
+            var title = "";
+            var poster = "";
+            if (!data) {
+                $("#load").css("display", "none");
+                $("#nomov").css("display", "block");
+                $("#nomov").html("Please enter correct movie title");
+                setTimeout("$('#nomov').css('display', 'none');", 1500);
+            } else {
+                $("#results").html("");
+                for (var i = 0; i < data.length; i++) {
+                    title = data[i].title;
+                    year = data[i].release_date;
+                    type = data[i].vote_average;
+                    poster = data[i].poster_path;
+                    bg = data[i].backdrop_path;
+                    id = data[i].id;
+    
+                    var cell = "<div class='cell'><div class='hdr2'>" + title + "</div><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt none' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
+                    $("#results").append(cell);
+                    $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
+                };
+                ////////////////////////// add to list
+                // $('.addMov').on('click', function () {
+                //     var dataId = this.getAttribute("dataId");
+                //     var self = this;
+                //     $.post('/addMov', { dataId: dataId }, function (data) {
+                //         console.log(data);
+    
+                //         // $(".alreadyIn").html(data);
+                //         if (data == true) {
+                //             self.nextElementSibling.nextElementSibling.innerHTML = "Movie has been added";
+                //             self.remove();
+    
+                //         } else {
+                //             self.nextElementSibling.nextElementSibling.innerHTML = data;
+                //             self.remove();
+    
+                //         }
+                //     });
+                // });
+            }
+            console.log(data);
+        });  
+};
 
 $('#reg').click(function () {
     window.location.href = '/registration';
