@@ -31,6 +31,7 @@ function search() {
                 $("#nomov").html("Please enter correct movie title");
                 setTimeout("$('#nomov').css('display', 'none');", 1500);
             } else {
+                $("#load").css("display", "none");
                 $("#results").html("");
                 for (var i = 0; i < data.length; i++) {
                     title = data[i].title;
@@ -131,17 +132,37 @@ $('#wall').hover(function () {
 });
 
 
-$('#buttL').click(function () {
-    var movie = $('#name').val();
+$('#buttL').on({
+    click : () => {
+        searchL();
+        preloader();
+    }
+});
+
+$("#nameL").on({
+    keyup : function(e) {
+        if( e.keyCode == 13) {
+            searchL();
+            preloader();
+        }
+        
+    }
+});
+
+
+function searchL() {
+    var movie = $('#nameL').val();
     $.post('/mdbSearchLog', { name: movie }, function (data) {
         var title = "";
         var poster = "";
         if (!data) {
+            $("#load").css("display", "none");
             $("#nomov").css("display", "block");
             $("#nomov").html("Please enter correct movie title");
             setTimeout("$('#nomov').css('display', 'none');", 1500);
 
         } else {
+            $("#load").css("display", "none");
             $("#results").html("");
             for (var i = 0; i < data.length; i++) {
                 title = data[i].title;
@@ -177,11 +198,25 @@ $('#buttL').click(function () {
         }
         console.log(data);
     });
-});
+}
 
 ////////////////////////// delete movie
 
 $('.remove').on("click", function () {
+    var dataId = $(this).parent().attr("dataid");
+    console.log(dataId);
+    var self = $(this).parent();
+    
+    $.post('/deleteMov',{ dataid: dataId }, function (data) {
+        if(data){
+            $(self).remove();
+        }
+    });
+});
+
+//////////////////////////////// add comments
+
+$('.comm').on("click", function () {
     var dataId = $(this).parent().attr("dataid");
     console.log(dataId);
     var self = $(this).parent();

@@ -13,7 +13,7 @@ html(lang='en')
     link(href='https://fonts.googleapis.com/css?family=Luckiest+Guy|Patrick+Hand+SC|Special+Elite|Ubuntu', rel='stylesheet')
     script(src='//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
   body
-    input#name(type='text', placeholder='Enter movie name')
+    input#nameL(type='text', placeholder='Enter movie name')
     button#buttL Find
     span.nav
       span#backToList 
@@ -21,6 +21,7 @@ html(lang='en')
       button#signOut.auth Sign Out
     hr
     #nomov
+    #load
     #results
       - for (var i = 0; i < myMovies.length; i++) {
         - var x = 'https://image.tmdb.org/t/p/w500' + myMovies[i].poster_path
@@ -35,6 +36,7 @@ html(lang='en')
           br
           img(src= 'images/watched.png' width=30 height=30).seen
           img(src= image width=30 height=30).remove
+          img(src= 'images/comm.svg' width=30 height=30).comm
           p.delete Remove from list
           
           

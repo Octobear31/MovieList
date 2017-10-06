@@ -1,6 +1,6 @@
 .cell {
  width: 290px;
- min-height: 471px;
+ min-height: 456px;
  /* height: 520px; */
  border: 1px solid black;
  margin-bottom: 10px;
@@ -216,7 +216,7 @@ img{
     background: rgba(255, 0, 0, 0.2);
 }
 
-.remove, .seen{
+.remove, .seen, .comm{
     border: none;
     border-radius: 50%;
     margin: 10px;
@@ -226,6 +226,10 @@ img{
 
 .remove:hover{
     background: #F36C6C;
+}
+
+.comm:hover{
+    background: #6DA9F1;
 }
 
 /* .seen{
@@ -346,6 +350,9 @@ img{
 #load{
     width: 100px;
     height: 100px;
+    position: fixed;
+    top: calc(20% - 50px);
+    left: calc(50% - 50px);
     margin-top: calc(20% - 50px);
     background-image: url(images/load.svg);
     animation-name: preload;
