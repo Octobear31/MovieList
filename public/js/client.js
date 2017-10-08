@@ -176,7 +176,9 @@ function searchL() {
                 $("#results").append(cell);
                 $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
             };
+
             ////////////////////////// add to list
+            
             $('.addMov').on('click', function () {
                 var dataId = this.getAttribute("dataId");
                 var self = this;
