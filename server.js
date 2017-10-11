@@ -23,11 +23,16 @@ app.get('/', function (req, res) {
   }
   else {
     var myMoviesToScreen = [];
+    var moviesSeen = [];
     MongoClient.connect(url, function (err, db) {
       if (err) throw err;
       db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
         if (err) throw err;
         var movieIdArr = user[0].movieId;
+        if (typeof user[0].seen !== undefined) {
+          moviesSeen = user[0].seen;
+        }
+        // console.log(user[0]);
         // console.log(movieIdArr);
         // for (var i = 0; i < movieIdArr.length; i++) {
         //   db.collection("movieDB").find({ id: movieIdArr[i] }).toArray(function (err, movies) {
@@ -46,8 +51,48 @@ app.get('/', function (req, res) {
             if (docs != null) {
               myMoviesToScreen = docs;
               // console.log(docs);
+              /////////////////////////////////////// mark as seen
+
+              app.post("/markSeen", function (req, res) {
+                var movId = parseInt(req.body.dataid, 10);
+                // var seen = '';
+                // console.log(req.body);
+                MongoClient.connect(url, function (err, db) {
+                  if (err) throw err;
+                  db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
+                    if (err) throw err;
+                    // var movieIdArr = user[0].movieId;
+                    var movInd = user[0].seen.indexOf(movId);
+                    console.log(movInd);
+                    if (movInd == -1) {
+                      user[0].seen.push(movId);
+                      db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+                        if (err) throw err;
+                        res.send(true);
+                      });
+
+
+                    } else {
+                      db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
+                        if (err) throw err;
+                        // var movieIdArr = user[0].movieId;
+                        var movInd = user[0].seen.indexOf(movId);
+                        console.log(movInd);
+                        user[0].seen.splice(movInd, 1);
+                        db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+                          if (err) throw err;
+                          res.send(false);
+                        });
+                  
+                      });
+                    };
+                  });
+                });
+              });
+
+              // console.log(docs);
             }
-            res.render('mainLog', { login: session.login, movies: myMoviesToScreen });
+            res.render('mainLog', { login: session.login, movies: myMoviesToScreen, word: moviesSeen });
 
           });
         });
@@ -68,7 +113,7 @@ app.get('/', function (req, res) {
     });
 
 
-  }
+  };
 });
 
 // app.get("/logedUser", function (req, res) {
@@ -104,24 +149,24 @@ app.get("/p:id", function (req, res) {
 });
 ////////////////////////////////////////////////////// search log
 app.post('/mdbSearchLog', function (req, res) {
-  if(session.login) {
-  var input = req.body.name;
-  console.log(input);
-  if (input == "") {
-    res.send(false);
-  } else {
-    // console.log(input);
-    mdb.searchMovie({ query: input }, (err, data) => {
-      let dataM = data;
-      if (dataM.total_results == 0) {
-        res.send(false);
-      } else {
-        // console.log(dataM);
-        res.json(dataM.results);
-      }
-    });
+  if (session.login) {
+    var input = req.body.name;
+    console.log(input);
+    if (input == "") {
+      res.send(false);
+    } else {
+      // console.log(input);
+      mdb.searchMovie({ query: input }, (err, data) => {
+        let dataM = data;
+        if (dataM.total_results == 0) {
+          res.send(false);
+        } else {
+          // console.log(dataM);
+          res.json(dataM.results);
+        }
+      });
+    }
   }
-}
 });
 
 /////////////////////////////////// search unlog
@@ -151,7 +196,7 @@ app.post('/registration', function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var user =
-      { login: req.body.login, email: req.body.email, password: req.body.password, movieId: [] };
+      { login: req.body.login, email: req.body.email, password: req.body.password, movieId: [], seen: [], comments: [] };
     db.collection("musers").insertOne(user, function (err, result) {
       if (err) throw err;
       if (result != null) {
@@ -220,6 +265,7 @@ app.post("/addMov", function (req, res) {
           result[0].movieId.push(mId);
           db.collection("musers").updateOne({ email: session.email }, result[0], function (err, resultat) {
             if (err) throw err;
+            res.send(true);
             // console.log("1 document updated");
           });
           mdb.movieInfo({ id: mId }, (err, movieObj) => {
@@ -228,11 +274,12 @@ app.post("/addMov", function (req, res) {
             db.collection("movieDB").findOne(checkMDB, function (err, result) {
               if (err) throw err;
               if (result == null) {
+                movieObj.seen = 1;
                 db.collection("movieDB").insertOne(movieObj, function (err, result) {
                   if (err) throw err;
                   if (result != null) {
                     console.log("Movie added to DB");
-                    res.send(true);
+                    // res.send(true);
                   };
                 });
 
@@ -269,32 +316,61 @@ app.post("/addMov", function (req, res) {
 
 ///////////////////////////// delete movie
 
-app.post("/deleteMov", function(req, res) {
+app.post("/deleteMov", function (req, res) {
   var movId = parseInt(req.body.dataid, 10);
   // console.log(req.body);
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-  db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
-    if (err) throw err;
-    // var movieIdArr = user[0].movieId;
-    var k = user[0].movieId.indexOf(movId);
-    console.log(k);
-    user[0].movieId.splice(k,1);
-    db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+    db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
       if (err) throw err;
-      res.send(true);
+      // var movieIdArr = user[0].movieId;
+      var movInd = user[0].movieId.indexOf(movId);
+      console.log(movInd);
+      user[0].movieId.splice(movInd, 1);
+      db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+        if (err) throw err;
+        res.send(true);
+      });
+
     });
-    
-  });
   });
 });
+
+// /////////////////////////////////////// mark as seen
+
+// app.post("/markSeen", function (req, res) {
+//   var movId = parseInt(req.body.dataid, 10);
+//   var seen = '';
+//   // console.log(req.body);
+//   MongoClient.connect(url, function (err, db) {
+//     if (err) throw err;
+//     db.collection("musers").find({ email: session.email }).toArray(function (err, user) {
+//       if (err) throw err;
+//       // var movieIdArr = user[0].movieId;
+//       var movInd = user[0].seen.indexOf(movId);
+//       console.log(movInd);
+//       if (movInd == -1) {
+//         user[0].seen.push(movId);
+//         db.collection("musers").updateOne({ email: session.email }, user[0], function (err, resultat) {
+//           if (err) throw err;
+//           res.send(true);
+//         });
+
+
+//       } else {
+//           seen = '.blue'
+//       };
+//     });
+//   });
+// });
+
 
 
 
 
 
 // app.listen(3002);
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
 });
 

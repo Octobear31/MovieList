@@ -101,7 +101,7 @@ input {
     margin-left: 10px;
     cursor: pointer;
     font-size: 20px;
-    background:rgba(176, 106, 77, 0.9);
+    background:rgb(176, 103, 77);
     color: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(140, 125, 94, 1);
     border-radius: 3px;
@@ -126,16 +126,20 @@ input {
 
 #butt:hover {
     background:rgba(176, 106, 77, 1);
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.7);
 }
 
 #buttL:hover {
     background:rgba(176, 106, 77, 1);
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.7);
 }
 
 .cell:hover {
     background-color: rgba(255, 255, 255, 1);
+}
+
+.blue:hover {
+    background-color: rgba(248, 117, 35, 0.925);
 }
 
 input:hover {
@@ -255,6 +259,7 @@ img{
     position: absolute;
     left: 1000px;
     top: 162px;
+    cursor: pointer;
     /* border: 1px solid; */  
 }
 
@@ -265,12 +270,13 @@ img{
     background-position: center bottom;
     /* background-attachment: fixed; */
     background-size: contain;
-    width: 400px;
-    height: 300px;
+    width: 290px;
+    height: 190px;
     position: absolute;
-    left: 950px;
-    top: -100px;
+    left: 340px;
+    top: -140px;
     display: none;
+    
  }
 
  #wall:hover #why{
@@ -354,7 +360,7 @@ img{
     top: calc(20% - 50px);
     left: calc(50% - 50px);
     margin-top: calc(20% - 50px);
-    background-image: url(images/load.svg);
+    background-image: url(images/load3.svg);
     animation-name: preload;
     animation-duration: 2s;
     animation-timing-function: linear;
@@ -366,4 +372,13 @@ img{
 @keyframes preload{
     0%{transform: rotate(0deg);}
     100%{transform: rotate(360deg);}
+}
+
+.blue{
+    /* background: rgba(253, 125, 50, 0.918); */
+    background-image: url(images/colbg11.jpg);
+    background-size: cover;
+}
+.green{
+    background: lightgreen;
 }

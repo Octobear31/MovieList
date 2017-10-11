@@ -2,6 +2,8 @@
 - var myMovies = movies;
 - var rating = "  |  Rating: ";
 - var image = 'images/delete.png';
+- var slovo = word;
+- var seenEye;
 doctype html
 html(lang='en')
   head
@@ -25,19 +27,22 @@ html(lang='en')
     #results
       - for (var i = 0; i < myMovies.length; i++) {
         - var x = 'https://image.tmdb.org/t/p/w500' + myMovies[i].poster_path
-        div.cell(dataId=myMovies[i].id)
+        - var isSeen = slovo.includes(myMovies[i].id);
+        - if(isSeen) {isSeen = 'blue'; seenEye = 'green'} else {isSeen = '', seenEye = ''}
+        div.cell(dataId=myMovies[i].id,class=isSeen)
           div.hdr2= myMovies[i].title
           h3
             = myMovies[i].release_date
             = rating
-            = myMovies[i].vote_average
+            = myMovies[i].vote_average 
             /10
           img(src= x width=200 height=300)
           br
-          img(src= 'images/watched.png' width=30 height=30).seen
+          img(src= 'images/eye.svg' width=30 height=30, class=seenEye).seen
           img(src= image width=30 height=30).remove
-          img(src= 'images/comm.svg' width=30 height=30).comm
-          p.delete Remove from list
+          a(href="/p" + myMovies[i].id + "")
+            img(src= 'images/comm.svg' width=30 height=30).comm
+          
           
           
 

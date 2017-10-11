@@ -173,12 +173,13 @@ function searchL() {
                 id = data[i].id;
 
                 var cell = "<div class='cell'><div class='hdr2'>" + title + "</div><h3>" + year + "  |  rating: " + type + "/10</h3><img src='https://image.tmdb.org/t/p/w500" + poster + "' alt='Sorry, we can not find poster for this movie.' width=200 height=300 ><br><button class='addMov cellbutt' dataId= '" + id + "'>Add to list</button><a href='/p" + id + "'><button class='view cellbutt'>Details</button></a><p class='alreadyIn'></p></div>";
+                $("#log").css("display", "none");
                 $("#results").append(cell);
                 $("#backToList").html("<a href='/'><button id='bcktolst' class='auth'>My movies</button></a>");
             };
 
             ////////////////////////// add to list
-            
+
             $('.addMov').on('click', function () {
                 var dataId = this.getAttribute("dataId");
                 var self = this;
@@ -218,16 +219,23 @@ $('.remove').on("click", function () {
 
 //////////////////////////////// add comments
 
-$('.comm').on("click", function () {
+
+
+/////////////////////////////// mark as seen
+
+$('.seen').on("click", function () {
     var dataId = $(this).parent().attr("dataid");
     console.log(dataId);
     var self = $(this).parent();
-    
-    $.post('/deleteMov',{ dataid: dataId }, function (data) {
+    $(this).toggleClass("green");
+    $.post('/markSeen',{ dataid: dataId }, function (data) {
         if(data){
-            $(self).remove();
-        }
+            $(self).toggleClass("blue");
+        } else {
+            $(self).toggleClass("blue");
+        };
     });
 });
+
 
 
